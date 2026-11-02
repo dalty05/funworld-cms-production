@@ -1,0 +1,139 @@
+/* ─── Funworld Events design tokens ─────────────────────────────── */
+
+:root {
+  /* ─── Palette ─────────────────────────────────────────────────── */
+  /* Dominant */
+  --color-plum:       #2B0F2E;
+  --color-plum-soft:  #3A1A3E;
+  --color-ivory:      #FCF9F4;
+  --color-gold:       #C9A45C;
+  --color-gold-soft:  #D9BC7E;
+
+  /* Accents (use sparingly) */
+  --color-coral:      #E8836B;
+  --color-sage:       #8FAE8A;
+
+  /* Supporting */
+  --color-burgundy:   #6B1F2E;
+  --color-charcoal:   #2A2A2A;
+  --color-beige:      #EFE6D5;
+
+  /* Semantic */
+  --color-bg:         var(--color-ivory);
+  --color-bg-dark:    var(--color-plum);
+  --color-text:       var(--color-charcoal);
+  --color-text-muted: #6B6B6B;
+  --color-text-inv:   var(--color-ivory);
+  --color-border:     rgba(201, 164, 92, 0.22);
+  --color-border-soft: rgba(43, 15, 46, 0.08);
+
+  /* ─── Typography ──────────────────────────────────────────────── */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body:    "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --fs-xs:    0.75rem;
+  --fs-sm:    0.875rem;
+  --fs-base:  1rem;
+  --fs-lg:    1.125rem;
+  --fs-xl:    1.5rem;
+  --fs-2xl:   2rem;
+  --fs-3xl:   2.75rem;
+  --fs-4xl:   3.5rem;
+  --fs-5xl:   4.5rem;
+
+  --lh-tight:  1.15;
+  --lh-snug:   1.35;
+  --lh-normal: 1.6;
+
+  --ls-tight:  -0.015em;
+  --ls-normal: 0;
+  --ls-wide:   0.08em;    /* for small-caps labels */
+
+  /* ─── Spacing ─────────────────────────────────────────────────── */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.5rem;
+  --sp-6:  2rem;
+  --sp-7:  3rem;
+  --sp-8:  4rem;
+  --sp-9:  6rem;
+  --sp-10: 8rem;
+
+  /* ─── Radii ───────────────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* ─── Shadows ─────────────────────────────────────────────────── */
+  --shadow-soft:  0 2px 20px rgba(43, 15, 46, 0.06);
+  --shadow-card:  0 6px 32px rgba(43, 15, 46, 0.10);
+  --shadow-glow:  0 12px 48px rgba(201, 164, 92, 0.15);
+
+  /* ─── Glass ───────────────────────────────────────────────────── */
+  --glass-bg:       rgba(252, 249, 244, 0.72);
+  --glass-bg-dark:  rgba(43, 15, 46, 0.55);
+  --glass-blur:     blur(16px) saturate(140%);
+  --glass-border:   1px solid rgba(201, 164, 92, 0.18);
+  --glass-border-top: 1px solid rgba(255, 255, 255, 0.25);
+
+  /* ─── Motion ──────────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+
+  /* ─── Layout ──────────────────────────────────────────────────── */
+  --container-max: 1280px;
+  --container-pad: 1.5rem;
+  --header-h: 76px;
+  
+  /* New editorial tokens (Phase 25) */
+  --color-ink: #1a1417;
+  --color-clay: #c4a582;
+  --color-sage: #7a8b6f;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --container-wide: 1320px;
+  --container-editorial: 1120px;
+
+  --section-pad: clamp(4rem, 10vw, 8rem);
+
+
+
+
+
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-pad: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --container-pad: 3rem;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

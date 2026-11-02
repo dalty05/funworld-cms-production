@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: funworld
+      POSTGRES_PASSWORD: funworld_dev
+      POSTGRES_DB: funworld_events
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U funworld"]
+      interval: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    command: python -m app
+    environment:
+      FLASK_ENV: development
+      DATABASE_URL: postgresql+psycopg://funworld:funworld_dev@postgres:5432/funworld_events
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: dev-secret
+      JWT_SECRET_KEY: dev-jwt-secret
+      SOCKETIO_MESSAGE_QUEUE: redis://redis:6379/3
+    volumes: ["./backend:/app"]
+    ports: ["5000:5000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+
+  worker:
+    build: ./backend
+    command: celery -A app.celery_app worker --loglevel=info
+    environment:
+      DATABASE_URL: postgresql+psycopg://funworld:funworld_dev@postgres:5432/funworld_events
+      REDIS_URL: redis://redis:6379/0
+      SOCKETIO_MESSAGE_QUEUE: redis://redis:6379/3
+      SECRET_KEY: dev-secret
+      JWT_SECRET_KEY: dev-jwt-secret
+    volumes: ["./backend:/app"]
+    depends_on: [backend]
+
+  frontend:
+    build: ./frontend
+    command: npm run dev -- --host 0.0.0.0
+    ports: ["5173:5173"]
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on: [backend]
+
+volumes:
+  pgdata:
